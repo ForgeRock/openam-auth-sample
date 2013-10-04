@@ -1,14 +1,18 @@
 # openam-auth-sample
 
-OpenAM Sample Custom Auth Module
+*An OpenAM Sample Custom Authentication Module*
 
-Need to update [Customizing Authentication Modules](http://openam.forgerock.org/openam-documentation/openam-doc-source/doc/dev-guide/index/chap-auth-spi.html)
-to fit with this version of the sample.
+For instructions on using this sample authentication
+module with OpenAM see the chapter,
+*[Customizing Authentication Modules](http://openam.forgerock.org/openam-documentation/openam-doc-source/doc/dev-guide/index/chap-auth-spi.html)*,
+in the OpenAM *Developer's Guide*.
 
-1.	`mvn install`
-2.	`cp target/openam-auth-sample-1.0.0-SNAPSHOT.jar /path/to/tomcat/webapps/openam/WEB-INF/lib/`
-3.	Configure as described in the chapter but with module name `org.forgerock.openam.examples.SampleAuth`
-4.	Test login such as http://openam.example.com:8080/openam/UI/Login?service=sample
-    with user `demo` password `changeit` for success, or users `test1` and `test2` for failure.
+* * *
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+To view a copy of this license, visit
+<http://creativecommons.org/licenses/by-nc-nd/3.0/>
+or send a letter to Creative Commons, 444 Castro Street,
+Suite 900, Mountain View, California, 94041, USA.
 
-TBC...
+Copyright 2013 ForgeRock AS
