@@ -11,7 +11,7 @@ Before building the sample authentication module, update
 the OpenAM version in the POM to match the version of OpenAM
 that you are using. The line to update is:
 
-    <openam.version>11.0.0-SNAPSHOT</openam.version>
+    <openam.version>12.0.0-SNAPSHOT</openam.version>
 
 * * *
 This work is licensed under the Creative Commons
