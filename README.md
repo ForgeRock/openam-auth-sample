@@ -4,10 +4,10 @@
 
 For instructions on using this sample authentication
 module with OpenAM see the chapter,
-*[Customizing Authentication Modules](https://backstage.forgerock.com/#!/docs/openam/12.0.0/dev-guide/chap-auth-spi)*,
+*[Customizing Authentication Modules](https://backstage.forgerock.com/#!/docs/openam/11.0.0/dev-guide/chap-auth-spi)*,
 in the OpenAM *Developer's Guide*.
 
-Note that this branch is to OpenAM 12.0.x custom module. Please checkout the right branches if you're not using this
+Note that this branch is to OpenAM 11.0.x custom module. Please checkout the right branches if you're not using this
 version of OpenAM.
 
 * * *
