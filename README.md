@@ -4,14 +4,11 @@
 
 For instructions on using this sample authentication
 module with OpenAM see the chapter,
-*[Customizing Authentication Modules](http://openam.forgerock.org/openam-documentation/openam-doc-source/doc/dev-guide/index/chap-auth-spi.html)*,
+*[Customizing Authentication Modules](https://backstage.forgerock.com/#!/docs/openam/11.0.0/dev-guide/chap-auth-spi)*,
 in the OpenAM *Developer's Guide*.
 
-Before building the sample authentication module, update
-the OpenAM version in the POM to match the version of OpenAM
-that you are using. The line to update is:
-
-    <openam.version>11.0.0-SNAPSHOT</openam.version>
+Note that this branch is to OpenAM 11.0.x custom module. Please checkout the right branches if you're not using this
+version of OpenAM.
 
 * * *
 This work is licensed under the Creative Commons
@@ -21,4 +18,4 @@ To view a copy of this license, visit
 or send a letter to Creative Commons, 444 Castro Street,
 Suite 900, Mountain View, California, 94041, USA.
 
-Copyright 2013 ForgeRock AS
+Copyright 2013-2015 ForgeRock AS
