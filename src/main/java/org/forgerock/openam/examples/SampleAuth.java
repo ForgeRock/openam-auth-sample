@@ -45,12 +45,13 @@ import com.sun.identity.shared.debug.Debug;
 /**
  * SampleAuth authentication module example.
  *
- * If you want to create your own module based on this example, you will need to modify every "SampleAuth" occurrences
- * in addition of refactoring this class name.
+ * If you create your own module based on this example, you must modify all
+ * occurrences of "SampleAuth" in addition to changing the name of the class.
  *
  * Please refer to OpenAM documentation for further information.
  *
- * Feel free to have a look on the embedded authentication modules in OpenAM, as they implement the same API.
+ * Feel free to look at the code for authentication modules delivered with
+ * OpenAM, as they implement this same API.
  */
 public class SampleAuth extends AMLoginModule {
 
@@ -87,7 +88,8 @@ public class SampleAuth extends AMLoginModule {
 
 
     /**
-     * This method stores service attributes and localized properties for later use.
+     * This method stores service attributes and localized properties for later
+     * use.
      * @param subject
      * @param sharedState
      * @param options
@@ -122,24 +124,26 @@ public class SampleAuth extends AMLoginModule {
                 String username = nc.getName();
                 String password = String.valueOf(pc.getPassword());
 
-                // First errorstring is stored in "sampleauth-error-1" property.
+                //First errorstring is stored in "sampleauth-error-1" property.
                 if (ERROR_1_USERNAME.equals(username)) {
                     setErrorText(SIMPLE_AUTH_ERROR_1);
                     return STATE_ERROR;
                 }
 
-                // Second errorstring is stored in "sampleauth-error-2" property.
+                //Second errorstring is stored in "sampleauth-error-2" property.
                 if (ERROR_2_USERNAME.equals(username)) {
                     setErrorText(SIMPLE_AUTH_ERROR_2);
                     return STATE_ERROR;
                 }
 
                 if (USERNAME.equals(username) && PASSWORD.equals(password)) {
-                    debug.message("SampleAuth::process User '{}' authenticated with success.", username);
+                    debug.message("SampleAuth::process User '{}' " +
+                            "authenticated with success.", username);
                     return ISAuthConstants.LOGIN_SUCCEED;
                 }
 
-                throw new InvalidPasswordException("password is wrong", USERNAME);
+                throw new InvalidPasswordException("password is wrong",
+                        USERNAME);
 
             case STATE_ERROR:
                 return STATE_ERROR;
@@ -161,13 +165,17 @@ public class SampleAuth extends AMLoginModule {
 
     private void substituteUIStrings() throws AuthLoginException {
         // Get service specific attribute configured in OpenAM
-        String ssa = CollectionHelper.getMapAttr(options, "sampleauth-service-specific-attribute");
+        String ssa = CollectionHelper.getMapAttr(options,
+                "sampleauth-service-specific-attribute");
 
         // Get property from bundle
-        String new_hdr = ssa + " " + bundle.getString("sampleauth-ui-login-header");
+        String new_hdr = ssa + " " +
+                bundle.getString("sampleauth-ui-login-header");
         substituteHeader(STATE_AUTH, new_hdr);
 
-        replaceCallback(STATE_AUTH, 0, new NameCallback(bundle.getString("sampleauth-ui-username-prompt")));
-        replaceCallback(STATE_AUTH, 1, new PasswordCallback(bundle.getString("sampleauth-ui-password-prompt"), false));
+        replaceCallback(STATE_AUTH, 0, new NameCallback(
+                bundle.getString("sampleauth-ui-username-prompt")));
+        replaceCallback(STATE_AUTH, 1, new PasswordCallback(
+                bundle.getString("sampleauth-ui-password-prompt"), false));
     }
 }

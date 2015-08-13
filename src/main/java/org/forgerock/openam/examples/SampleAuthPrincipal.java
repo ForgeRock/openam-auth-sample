@@ -46,9 +46,9 @@ public class SampleAuthPrincipal implements Principal, Serializable {
     }
 
     /**
-     * Return the LDAP username for this <code> SampleAuthPrincipal </code>.
+     * Return the LDAP username for this <code>SampleAuthPrincipal</code>.
      *
-     * @return the LDAP username for this <code> SampleAuthPrincipal </code>
+     * @return the LDAP username for this <code>SampleAuthPrincipal</code>
      */
     @Override
     public String getName() {
@@ -56,26 +56,27 @@ public class SampleAuthPrincipal implements Principal, Serializable {
     }
 
     /**
-     * Return a string representation of this <code> SampleAuthPrincipal </code>.
+     * Return a string representation of this <code>SampleAuthPrincipal</code>.
      *
      * @return a string representation of this
      *         <code>TestAuthModulePrincipal</code>.
      */
     @Override
     public String toString() {
-        return new StringBuilder().append(this.getClass().getName()).append(COLON).append(name).toString();
+        return new StringBuilder().append(this.getClass().getName())
+                .append(COLON).append(name).toString();
     }
 
     /**
-     * Compares the specified Object with this <code> SampleAuthPrincipal </code>
+     * Compares the specified Object with this <code>SampleAuthPrincipal</code>
      * for equality. Returns true if the given object is also a
      * <code> SampleAuthPrincipal </code> and the two SampleAuthPrincipal have
      * the same username.
      *
      * @param o Object to be compared for equality with this
-     *          <code> SampleAuthPrincipal </code>.
+     *          <code>SampleAuthPrincipal</code>.
      * @return true if the specified Object is equal equal to this
-     *         <code> SampleAuthPrincipal </code>.
+     *         <code>SampleAuthPrincipal</code>.
      */
     @Override
     public boolean equals(Object o) {
@@ -99,9 +100,9 @@ public class SampleAuthPrincipal implements Principal, Serializable {
     }
 
     /**
-     * Return a hash code for this <code> SampleAuthPrincipal </code>.
+     * Return a hash code for this <code>SampleAuthPrincipal</code>.
      *
-     * @return a hash code for this <code> SampleAuthPrincipal </code>.
+     * @return a hash code for this <code>SampleAuthPrincipal</code>.
      */
     @Override
     public int hashCode() {
