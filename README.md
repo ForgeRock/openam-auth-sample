@@ -7,14 +7,15 @@ major release of OpenAM.
 In order to get the example for your OpenAM version, you need to switch to
 the right GIT branch.
 
+Note: If you choose to fork the project first, which we recommend,
+replace `git@github.com:ForgeRock/openam-auth-sample.git` by your own fork URL.
 
 ### OpenAM 11.0.x
 
 The branch for `11.0.x` is currently `11.0.0`.
 
 ```
-$ git clone -b 11.0.0 -o forgerock git@github.com:ForgeRock/openam-auth-sample
-.git
+$ git clone -b 11.0.0 -o forgerock git@github.com:ForgeRock/openam-auth-sample.git
 ```
 
 You can also use the web application (github) to download the example:
@@ -26,8 +27,7 @@ You can also use the web application (github) to download the example:
 The branch for `12.0.x` is currently `12.0.0`.
 
 ```
-$ git clone -b 12.0.0 -o forgerock git@github
-.com:ForgeRock/openam-auth-sample.git
+$ git clone -b 12.0.0 -o forgerock git@github.com:ForgeRock/openam-auth-sample.git
 ```
 
 You can also use the web application (github) to download the example:
@@ -49,10 +49,9 @@ You can also use the web application (github) to download the example:
 
 # Working with GIT
 
-Cloning the git project instead of just downloading the source has some
+Forking the repository instead of just downloading the source has some
 advantages: you will be able to import ForgeRock changes easily by updating
-your branch from the remote one. You will be able to upgrade your custom
-module to a higher OpenAM version with GIT.
+your branch from the remote one.
 
 We won't recommend to use GIT if you're not used to it. If you're not a GIT
 user, downloading the example from the web application would be a good
@@ -93,8 +92,6 @@ modification. For updating the trunk branch with the last changes, you need to:
 $ git fetch forgerock
 $ git rebase forgerock/trunk
 ```
-
-
 
 
 * * *
