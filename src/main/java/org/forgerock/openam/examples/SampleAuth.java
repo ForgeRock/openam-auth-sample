@@ -75,8 +75,8 @@ public class SampleAuth extends AMLoginModule {
     private final static int STATE_ERROR = 3;
 
     // Errors properties
-    private final static String SIMPLE_AUTH_ERROR_1 = "sampleauth-error-1";
-    private final static String SIMPLE_AUTH_ERROR_2 = "sampleauth-error-2";
+    private final static String SAMPLE_AUTH_ERROR_1 = "sampleauth-error-1";
+    private final static String SAMPLE_AUTH_ERROR_2 = "sampleauth-error-2";
 
     private Map<String, String> options;
     private ResourceBundle bundle;
@@ -126,13 +126,13 @@ public class SampleAuth extends AMLoginModule {
 
                 //First errorstring is stored in "sampleauth-error-1" property.
                 if (ERROR_1_USERNAME.equals(username)) {
-                    setErrorText(SIMPLE_AUTH_ERROR_1);
+                    setErrorText(SAMPLE_AUTH_ERROR_1);
                     return STATE_ERROR;
                 }
 
                 //Second errorstring is stored in "sampleauth-error-2" property.
                 if (ERROR_2_USERNAME.equals(username)) {
-                    setErrorText(SIMPLE_AUTH_ERROR_2);
+                    setErrorText(SAMPLE_AUTH_ERROR_2);
                     return STATE_ERROR;
                 }
 
