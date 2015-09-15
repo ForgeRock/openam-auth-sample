@@ -49,6 +49,10 @@
     </AttributeSchema>
 
     <SubSchema name="serverconfig" inheritance="multiple">
+   <-- 
+    For OpenAM 13 and later, remove the preceding line and replace it with the following:       
+    <SubSchema name="serverconfig" inheritance="multiple" resourceName="USE-PARENT">
+   -->    
      <AttributeSchema name="iplanet-am-auth-sampleauth-auth-level"
       type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
       i18nKey="a500">
