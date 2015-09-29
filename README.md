@@ -7,11 +7,7 @@ module with OpenAM see the chapter,
 *[Customizing Authentication Modules](http://openam.forgerock.org/doc/bootstrap/dev-guide/#sec-auth-spi)*,
 in the OpenAM *Developer's Guide*.
 
-Before building the sample authentication module, update
-the OpenAM version in the POM to match the version of OpenAM
-that you are using. The line to update is:
-
-    <openam.version>13.0.0-SNAPSHOT</openam.version>
+This branch is for building a custom module with OpenAM 13.0.x.
 
 * * *
 This work is licensed under the Creative Commons
