@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) 2011 ForgeRock AS. All Rights Reserved
+   Copyright (c) 2011-2015 ForgeRock AS.
 
    The contents of this file are subject to the terms
    of the Common Development and Distribution License
@@ -31,9 +31,10 @@
   <Schema
    serviceHierarchy="/DSAMEConfig/authentication/iPlanetAMAuthSampleAuthService"
    i18nFileName="amAuthSampleAuth" revisionNumber="10"
-   i18nKey="sampleauth-service-description">
+   i18nKey="sampleauth-service-description" resourceName="sample">
    <Organization>
-    <AttributeSchema name="iplanet-am-auth-sampleauth-auth-level"
+    <!-- Specify resourceName for a JSON-friendly property in the REST SMS -->
+    <AttributeSchema name="iplanet-am-auth-sampleauth-auth-level" resourceName="authLevel"
      type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
      i18nKey="a500">
      <DefaultValues>
@@ -41,19 +42,16 @@
      </DefaultValues>
     </AttributeSchema>
 
-    <AttributeSchema name="sampleauth-service-specific-attribute"
-     type="single" syntax="string" validator="no" i18nKey="a501">
-     <DefaultValues>
-      <Value></Value>
-     </DefaultValues>
-    </AttributeSchema>
+    <!-- No need for resourceName when the name is JSON-compatible -->
+    <AttributeSchema name="specificAttribute"
+     type="single" syntax="string" validator="no" i18nKey="a501" />
 
-    <SubSchema name="serverconfig" inheritance="multiple">
-   <-- 
-    For OpenAM 13 and later, remove the preceding line and replace it with the following:       
+    <!--
+     For Auth Modules, the parent Schema element specifies the REST SMS resourceName,
+     and the nested SubSchema must have resourceName="USE-PARENT"
+    -->
     <SubSchema name="serverconfig" inheritance="multiple" resourceName="USE-PARENT">
-   -->    
-     <AttributeSchema name="iplanet-am-auth-sampleauth-auth-level"
+     <AttributeSchema name="iplanet-am-auth-sampleauth-auth-level" resourceName="authLevel"
       type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
       i18nKey="a500">
       <DefaultValues>
@@ -61,12 +59,9 @@
       </DefaultValues>
      </AttributeSchema>
 
-     <AttributeSchema name="sampleauth-service-specific-attribute"
-      type="single" syntax="string" validator="no" i18nKey="a501">
-      <DefaultValues>
-       <Value></Value>
-      </DefaultValues>
-     </AttributeSchema>
+     <!-- No need for a DefaultValues element when the default is blank -->
+     <AttributeSchema name="specificAttribute"
+      type="single" syntax="string" validator="no" i18nKey="a501" />
 
     </SubSchema>
    </Organization>
