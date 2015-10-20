@@ -165,8 +165,7 @@ public class SampleAuth extends AMLoginModule {
 
     private void substituteUIStrings() throws AuthLoginException {
         // Get service specific attribute configured in OpenAM
-        String ssa = CollectionHelper.getMapAttr(options,
-                "sampleauth-service-specific-attribute");
+        String ssa = CollectionHelper.getMapAttr(options, "specificAttribute");
 
         // Get property from bundle
         String new_hdr = ssa + " " +
