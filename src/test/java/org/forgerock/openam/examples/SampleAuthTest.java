@@ -19,7 +19,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.BlockJUnit4ClassRunner;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -29,7 +28,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.api.support.membermodification.MemberMatcher;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
 import com.sun.identity.authentication.service.LoginState;
 import com.sun.identity.authentication.service.LoginStateCallback;
@@ -38,7 +36,7 @@ import com.sun.identity.authentication.util.ISAuthConstants;
 import com.sun.identity.shared.debug.Debug;
 
 @RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(BlockJUnit4ClassRunner.class)
+// @PowerMockRunnerDelegate(BlockJUnit4ClassRunner.class)
 @PrepareForTest(value = { SampleAuth.class, Subject.class })
 public class SampleAuthTest {
 
@@ -77,7 +75,7 @@ public class SampleAuthTest {
 	}
 
 	@Test
-	public void init() throws LoginException, IOException, UnsupportedCallbackException {
+	public void loginSuccess() throws LoginException, IOException, UnsupportedCallbackException {
 
 		// This is how we update the callbackHandlerMock to ensurew that we can ibject
 		// our own callbacks. First we have to ensure that we have a valid #LoginState,
