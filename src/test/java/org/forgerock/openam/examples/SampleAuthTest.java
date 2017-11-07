@@ -1,6 +1,7 @@
 package org.forgerock.openam.examples;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 
+import org.forgerock.guava.common.collect.ImmutableSet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,6 +35,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.powermock.reflect.Whitebox;
 import org.springframework.mock.web.MockServletContext;
 
 import com.sun.identity.authentication.service.AuthD;
@@ -41,6 +44,7 @@ import com.sun.identity.authentication.service.LoginStateCallback;
 import com.sun.identity.authentication.spi.AMLoginModule;
 import com.sun.identity.authentication.spi.AuthLoginException;
 import com.sun.identity.authentication.spi.InvalidPasswordException;
+import com.sun.identity.authentication.spi.PagePropertiesCallback;
 import com.sun.identity.authentication.util.ISAuthConstants;
 import com.sun.identity.shared.debug.Debug;
 
@@ -128,7 +132,8 @@ public class SampleAuthTest {
 		// Init the shared state of the Authentication Module
 		Map<Object, Object> sharedState = new HashMap<Object, Object>();
 		// Init the options that would be passed though the AM GUI.
-		Map<String, String> options = new HashMap<String, String>();
+		Map<String, Serializable> options = new HashMap<String, Serializable>();
+		options.put(Constants.INIT_HEADER_ATTRIBUTE, ImmutableSet.of(Constants.UI_LOGIN_HEADER));
 
 		// Init the initial state to enter in as
 		int state = 1;
@@ -158,27 +163,32 @@ public class SampleAuthTest {
 		Assert.assertEquals(Constants.CORRECT_USERNAME, principal.getName());
 		Assert.assertEquals(new StringBuilder().append(SampleAuthPrincipal.class.getName()).append(" : ")
 				.append(Constants.CORRECT_USERNAME).toString(), principal.toString());
-		
+
 		// Callback 1 should be empty
 		Callback[] callback1 = sampleAuthSpy.getCallback(1);
 		Assert.assertEquals(0, callback1.length);
-		
+
 		// Callback 2 should have 2 callbacks
 		Callback[] callback2 = sampleAuthSpy.getCallback(2);
 		Assert.assertEquals(2, callback2.length);
 		Callback nameCallback = callback2[0];
 		Callback passwordCallback = callback2[1];
 		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
-		Assert.assertEquals(Constants.UI_USERNAME_PROMPT, ((NameCallback)nameCallback).getPrompt());
+		Assert.assertEquals(Constants.UI_USERNAME_PROMPT, ((NameCallback) nameCallback).getPrompt());
 		Assert.assertEquals(PasswordCallback.class, passwordCallback.getClass());
-		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT, ((PasswordCallback)passwordCallback).getPrompt());
-		
+		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT, ((PasswordCallback) passwordCallback).getPrompt());
+
 		// Callback 3 should have 1 callback
 		Callback[] callback3 = sampleAuthSpy.getCallback(3);
 		Assert.assertEquals(1, callback3.length);
 		nameCallback = callback3[0];
 		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
-		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback)nameCallback).getPrompt());
+		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback) nameCallback).getPrompt());
+
+		// Confirm we have the appropriate Header for #PagePropertiesCallback
+		List<Callback[]> o = Whitebox.getInternalState(sampleAuthSpy, "internal");
+		PagePropertiesCallback internalCallback = (PagePropertiesCallback) o.get(state)[0];
+		Assert.assertEquals(Constants.HEADER_LOGIN, internalCallback.getHeader());
 
 	}
 
@@ -456,24 +466,29 @@ public class SampleAuthTest {
 		// Callback 1 should be empty
 		Callback[] callback1 = sampleAuthSpy.getCallback(1);
 		Assert.assertEquals(0, callback1.length);
-		
+
 		// Callback 2 should have 2 callbacks
 		Callback[] callback2 = sampleAuthSpy.getCallback(2);
 		Assert.assertEquals(2, callback2.length);
 		Callback nameCallback_1 = callback2[0];
 		Callback passwordCallback_1 = callback2[1];
 		Assert.assertEquals(NameCallback.class, nameCallback_1.getClass());
-		Assert.assertEquals(Constants.UI_USERNAME_PROMPT_NULL, ((NameCallback)nameCallback_1).getPrompt());
+		Assert.assertEquals(Constants.UI_USERNAME_PROMPT_NULL, ((NameCallback) nameCallback_1).getPrompt());
 		Assert.assertEquals(PasswordCallback.class, passwordCallback_1.getClass());
-		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT_NULL, ((PasswordCallback)passwordCallback_1).getPrompt());
-		
+		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT_NULL, ((PasswordCallback) passwordCallback_1).getPrompt());
+
 		// Callback 3 should have 1 callback
 		Callback[] callback3 = sampleAuthSpy.getCallback(3);
 		Assert.assertEquals(1, callback3.length);
 		nameCallback_1 = callback3[0];
 		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
-		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback)nameCallback_1).getPrompt());
-		
+		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback) nameCallback_1).getPrompt());
+
+		// Confirm we have the appropriate Header for #PagePropertiesCallback
+		List<Callback[]> o = Whitebox.getInternalState(sampleAuthSpy, "internal");
+		PagePropertiesCallback internalCallback = (PagePropertiesCallback) o.get(state)[0];
+		Assert.assertEquals(Constants.HEADER_ERROR1, internalCallback.getHeader());
+
 	}
 
 	@Test
@@ -543,6 +558,32 @@ public class SampleAuthTest {
 		Assert.assertEquals(Constants.CORRECT_USERNAME, principal.getName());
 		Assert.assertEquals(new StringBuilder().append(SampleAuthPrincipal.class.getName()).append(" : ")
 				.append(Constants.CORRECT_USERNAME).toString(), principal.toString());
+
+		// Callback 1 should be empty
+		Callback[] callback1 = sampleAuthSpy.getCallback(1);
+		Assert.assertEquals(0, callback1.length);
+
+		// Callback 2 should have 2 callbacks
+		Callback[] callback2 = sampleAuthSpy.getCallback(2);
+		Assert.assertEquals(2, callback2.length);
+		Callback nameCallback_1 = callback2[0];
+		Callback passwordCallback_1 = callback2[1];
+		Assert.assertEquals(NameCallback.class, nameCallback_1.getClass());
+		Assert.assertEquals(Constants.UI_USERNAME_PROMPT_NULL, ((NameCallback) nameCallback_1).getPrompt());
+		Assert.assertEquals(PasswordCallback.class, passwordCallback_1.getClass());
+		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT_NULL, ((PasswordCallback) passwordCallback_1).getPrompt());
+
+		// Callback 3 should have 1 callback
+		Callback[] callback3 = sampleAuthSpy.getCallback(3);
+		Assert.assertEquals(1, callback3.length);
+		nameCallback_1 = callback3[0];
+		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
+		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback) nameCallback_1).getPrompt());
+
+		// Confirm we have the appropriate Header for #PagePropertiesCallback
+		List<Callback[]> o = Whitebox.getInternalState(sampleAuthSpy, "internal");
+		PagePropertiesCallback internalCallback = (PagePropertiesCallback) o.get(state)[0];
+		Assert.assertEquals(Constants.HEADER_ERROR2, internalCallback.getHeader());
 
 	}
 
