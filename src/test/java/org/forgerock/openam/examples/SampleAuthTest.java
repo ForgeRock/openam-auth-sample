@@ -158,6 +158,27 @@ public class SampleAuthTest {
 		Assert.assertEquals(Constants.CORRECT_USERNAME, principal.getName());
 		Assert.assertEquals(new StringBuilder().append(SampleAuthPrincipal.class.getName()).append(" : ")
 				.append(Constants.CORRECT_USERNAME).toString(), principal.toString());
+		
+		// Callback 1 should be empty
+		Callback[] callback1 = sampleAuthSpy.getCallback(1);
+		Assert.assertEquals(0, callback1.length);
+		
+		// Callback 2 should have 2 callbacks
+		Callback[] callback2 = sampleAuthSpy.getCallback(2);
+		Assert.assertEquals(2, callback2.length);
+		Callback nameCallback = callback2[0];
+		Callback passwordCallback = callback2[1];
+		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
+		Assert.assertEquals(Constants.UI_USERNAME_PROMPT, ((NameCallback)nameCallback).getPrompt());
+		Assert.assertEquals(PasswordCallback.class, passwordCallback.getClass());
+		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT, ((PasswordCallback)passwordCallback).getPrompt());
+		
+		// Callback 3 should have 1 callback
+		Callback[] callback3 = sampleAuthSpy.getCallback(3);
+		Assert.assertEquals(1, callback3.length);
+		nameCallback = callback3[0];
+		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
+		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback)nameCallback).getPrompt());
 
 	}
 
@@ -432,6 +453,27 @@ public class SampleAuthTest {
 		Assert.assertEquals(new StringBuilder().append(SampleAuthPrincipal.class.getName()).append(" : ")
 				.append(Constants.CORRECT_USERNAME).toString(), principal.toString());
 
+		// Callback 1 should be empty
+		Callback[] callback1 = sampleAuthSpy.getCallback(1);
+		Assert.assertEquals(0, callback1.length);
+		
+		// Callback 2 should have 2 callbacks
+		Callback[] callback2 = sampleAuthSpy.getCallback(2);
+		Assert.assertEquals(2, callback2.length);
+		Callback nameCallback_1 = callback2[0];
+		Callback passwordCallback_1 = callback2[1];
+		Assert.assertEquals(NameCallback.class, nameCallback_1.getClass());
+		Assert.assertEquals(Constants.UI_USERNAME_PROMPT_NULL, ((NameCallback)nameCallback_1).getPrompt());
+		Assert.assertEquals(PasswordCallback.class, passwordCallback_1.getClass());
+		Assert.assertEquals(Constants.UI_PASSWORD_PROMPT_NULL, ((PasswordCallback)passwordCallback_1).getPrompt());
+		
+		// Callback 3 should have 1 callback
+		Callback[] callback3 = sampleAuthSpy.getCallback(3);
+		Assert.assertEquals(1, callback3.length);
+		nameCallback_1 = callback3[0];
+		Assert.assertEquals(NameCallback.class, nameCallback.getClass());
+		Assert.assertEquals(Constants.UI_STATE3, ((NameCallback)nameCallback_1).getPrompt());
+		
 	}
 
 	@Test

@@ -7,8 +7,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-import com.sun.identity.authentication.spi.AuthLoginException;
-
 @RunWith(BlockJUnit4ClassRunner.class)
 public class SampleAuthPrincipalTest {
 
@@ -23,7 +21,7 @@ public class SampleAuthPrincipalTest {
 		SampleAuthPrincipal sampleAuthPrincipal = new SampleAuthPrincipal(null);
 		Assert.assertNull(sampleAuthPrincipal);
 	}
-	
+
 	@Test
 	public void hascode() {
 		SampleAuthPrincipal sampleAuthPrincipal = new SampleAuthPrincipal(Constants.CORRECT_USERNAME);
@@ -31,7 +29,7 @@ public class SampleAuthPrincipalTest {
 		Assert.assertEquals(Constants.CORRECT_USERNAME, sampleAuthPrincipal.getName());
 		Assert.assertEquals(3079651, sampleAuthPrincipal.hashCode());
 	}
-	
+
 	@Test
 	public void equals() {
 		SampleAuthPrincipal sampleAuthPrincipal = new SampleAuthPrincipal(Constants.CORRECT_USERNAME);
